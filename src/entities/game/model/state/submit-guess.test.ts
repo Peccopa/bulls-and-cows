@@ -68,4 +68,17 @@ describe('submitGuess', () => {
 
     expect(secondResult).toEqual(firstResult);
   });
+
+  it('ignores guesses after the game is won', () => {
+    const state = startGame(
+      createInitialState({ length: 3, base: 10 }),
+      () => 0,
+      1000,
+    );
+
+    const wonState = submitGuess(state, '012', 2000);
+    const result = submitGuess(wonState, '345', 3000);
+
+    expect(result).toEqual(wonState);
+  });
 });
