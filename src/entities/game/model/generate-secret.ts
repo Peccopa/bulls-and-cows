@@ -1,8 +1,17 @@
 export const generateSecret = (
-  _length: number,
-  _base: number,
-  _random: () => number = Math.random,
+  length: number,
+  base: number,
+  random: () => number = Math.random,
 ): string => {
-  _random();
-  return '';
+  const digits = Array.from({ length: base }, (_, digit) =>
+    digit.toString(base),
+  );
+
+  for (let index = 0; index < length; index += 1) {
+    const randomIndex = index + Math.floor(random() * (base - index));
+
+    [digits[index], digits[randomIndex]] = [digits[randomIndex], digits[index]];
+  }
+
+  return digits.slice(0, length).join('');
 };
