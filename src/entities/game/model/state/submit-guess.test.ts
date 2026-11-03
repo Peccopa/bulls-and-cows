@@ -55,4 +55,17 @@ describe('submitGuess', () => {
 
     expect(result).toEqual(state);
   });
+
+  it('ignores a guess that was already submitted', () => {
+    const state = startGame(
+      createInitialState({ length: 3, base: 10 }),
+      () => 0,
+      1000,
+    );
+
+    const firstResult = submitGuess(state, '345', 2000);
+    const secondResult = submitGuess(firstResult, '345', 3000);
+
+    expect(secondResult).toEqual(firstResult);
+  });
 });
