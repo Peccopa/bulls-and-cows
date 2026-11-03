@@ -1,7 +1,11 @@
-export const createDigitValidator = (
-  _base: number,
-): ((char: string) => boolean) => {
-  void _base;
+export const createDigitValidator =
+  (base: number): ((char: string) => boolean) =>
+  (char: string): boolean => {
+    if (char.length !== 1) {
+      return false;
+    }
 
-  return () => false;
-};
+    const digit = Number.parseInt(char, base);
+
+    return !Number.isNaN(digit) && digit.toString(base) === char.toLowerCase();
+  };
