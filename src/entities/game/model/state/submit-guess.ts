@@ -10,7 +10,10 @@ export const submitGuess = (
   if (
     state.status !== 'playing' ||
     state.secret === null ||
-    !isValidGuess(guess, state.settings.length, state.settings.base)
+    !isValidGuess(guess, state.settings.length, state.settings.base) ||
+    state.history.some(
+      (entry) => entry.guess.toLowerCase() === guess.toLowerCase(),
+    )
   ) {
     return state;
   }
