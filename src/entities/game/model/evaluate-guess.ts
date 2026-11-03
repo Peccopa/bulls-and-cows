@@ -2,8 +2,8 @@ export const evaluateGuess = (
   secret: string,
   guess: string,
 ): { bulls: number; cows: number } => {
-  const secretDigits = [...secret];
-  const guessDigits = [...guess];
+  const secretDigits = [...secret.toLowerCase()];
+  const guessDigits = [...guess.toLowerCase()];
 
   const bulls = guessDigits.filter(
     (digit, index) => digit === secretDigits[index],
