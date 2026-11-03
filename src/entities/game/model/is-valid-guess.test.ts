@@ -29,4 +29,8 @@ describe('isValidGuess', () => {
   it('accepts lowercase hexadecimal digits', () => {
     expect(isValidGuess('a1b2', 4, 16)).toBe(true);
   });
+
+  it('rejects hexadecimal guesses with duplicate digits in different cases', () => {
+    expect(isValidGuess('aA3', 3, 16)).toBe(false);
+  });
 });
