@@ -1,9 +1,24 @@
-export const countPossibleSecrets = (
-  _length: number,
-  _base: number,
-): number => {
-  void _length;
-  void _base;
+const memo = new Map<string, number>();
 
-  return 0;
+export const countPossibleSecrets = (length: number, base: number): number => {
+  const key = `${length}-${base}`;
+  const cachedResult = memo.get(key);
+
+  if (cachedResult !== undefined) {
+    return cachedResult;
+  }
+
+  if (length === 0) {
+    return 1;
+  }
+
+  if (length > base) {
+    return 0;
+  }
+
+  const result = (base - length + 1) * countPossibleSecrets(length - 1, base);
+
+  memo.set(key, result);
+
+  return result;
 };
