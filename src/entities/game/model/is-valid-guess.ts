@@ -10,7 +10,7 @@ export const isValidGuess = (
   }
 
   const isValidDigit = createDigitValidator(base);
-  const digits = [...guess];
+  const digits = [...guess.toLowerCase()];
 
   return digits.every(isValidDigit) && new Set(digits).size === length;
 };
