@@ -1,5 +1,5 @@
 {
-  "name": "ts-starter-pack",
+  "name": "bulls-and-cows",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -26,7 +26,6 @@
     "prettier": "3.9.6",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.68.0",
-    "validate-branch-name": "^1.3.2",
     "vite": "^8.3.2",
     "vitest": "^5.0.0"
   },
@@ -38,9 +37,5 @@
     "*.{json,md,html,css,yml,yaml}": [
       "prettier --write"
     ]
-  },
-  "validate-branch-name": {
-    "pattern": "^(main|(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|experiment)/([0-9]+-)?[a-z0-9-]+)$",
-    "errorMsg": "Branch name must follow pattern: <type>/<issue-number>-<description> or <type>/<description>. Example: feat/add-login-form or feat/117-add-login-form"
   }
 }
