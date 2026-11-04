@@ -24,21 +24,25 @@ export const createApp = (): HTMLElement => {
 
     console.log('Secret:', gameState.secret);
 
-    const gameView = createGameView(gameSettings.length, (guess) => {
-      if (gameState === null) {
-        return null;
-      }
+    const gameView = createGameView(
+      gameSettings.length,
+      gameSettings.base,
+      (guess) => {
+        if (gameState === null) {
+          return null;
+        }
 
-      const nextState = submitGuess(gameState, guess);
+        const nextState = submitGuess(gameState, guess);
 
-      if (nextState === gameState) {
-        return null;
-      }
+        if (nextState === gameState) {
+          return null;
+        }
 
-      gameState = nextState;
+        gameState = nextState;
 
-      return nextState;
-    });
+        return nextState;
+      },
+    );
 
     game.replaceWith(gameView);
     game = gameView;

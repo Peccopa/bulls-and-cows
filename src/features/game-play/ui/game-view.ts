@@ -1,8 +1,11 @@
 import type { GameState } from '../../../entities/game/model/state/types';
 import { createHistoryView } from './history-view';
+import { isValidGuess } from '../../../entities/game/model/validation/is-valid-guess';
+import { createDigitValidator } from '../../../entities/game/model/validation/create-digit-validator';
 
 export const createGameView = (
   length: number,
+  base: number,
   onGuess: (guess: string) => GameState | null,
 ): HTMLElement => {
   const game = document.createElement('section');
@@ -15,6 +18,12 @@ export const createGameView = (
   input.autocomplete = 'off';
   input.setAttribute('aria-label', 'Your guess');
 
+  const isValidDigit = createDigitValidator(base);
+
+  input.addEventListener('input', () => {
+    input.value = [...input.value].filter(isValidDigit).join('');
+  });
+
   const guessButton = document.createElement('button');
   guessButton.type = 'button';
   guessButton.textContent = 'Guess';
@@ -23,7 +32,14 @@ export const createGameView = (
   const history = document.createElement('div');
 
   guessButton.addEventListener('click', () => {
-    const nextState = onGuess(input.value);
+    const guess = input.value.trim();
+
+    if (!isValidGuess(guess, length, base)) {
+      result.textContent = 'Invalid guess. Check the length and digits.';
+      return;
+    }
+
+    const nextState = onGuess(guess);
 
     if (nextState === null) {
       result.textContent = 'Invalid or repeated guess.';
