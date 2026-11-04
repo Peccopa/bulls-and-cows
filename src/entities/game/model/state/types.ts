@@ -19,3 +19,10 @@ export type GameState = {
   startedAt: number | null;
   finishedAt: number | null;
 };
+
+export type GameRecord = {
+  settings: GameSettings;
+  attempts: number;
+  duration: number;
+  achievedAt: number;
+};
