@@ -49,10 +49,26 @@ export const createGameView = (
 
     const entry = nextState.history[nextState.history.length - 1];
 
-    result.textContent =
-      nextState.status === 'won'
-        ? `You won! ${entry.bulls} bulls.`
-        : `Bulls: ${entry.bulls}, Cows: ${entry.cows}`;
+    if (
+      nextState.status === 'won' &&
+      nextState.startedAt !== null &&
+      nextState.finishedAt !== null
+    ) {
+      const attempts = nextState.history.length;
+      const duration = Math.floor(
+        (nextState.finishedAt - nextState.startedAt) / 1000,
+      );
+
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
+
+      result.textContent =
+        `You won! ${entry.bulls} bulls. ` +
+        `Attempts: ${attempts}. ` +
+        `Time: ${minutes}m ${seconds}s.`;
+    } else {
+      result.textContent = `Bulls: ${entry.bulls}, Cows: ${entry.cows}`;
+    }
 
     history.replaceChildren(createHistoryView(nextState.history));
 
