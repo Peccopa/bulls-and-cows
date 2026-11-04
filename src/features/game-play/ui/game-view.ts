@@ -7,6 +7,7 @@ export const createGameView = (
   length: number,
   base: number,
   onGuess: (guess: string) => GameState | null,
+  onNewGame: () => void,
 ): HTMLElement => {
   const game = document.createElement('section');
   game.className = 'game';
@@ -56,7 +57,12 @@ export const createGameView = (
     history.replaceChildren(createHistoryView(nextState.history));
   });
 
-  game.append(input, guessButton, result, history);
+  const newGameButton = document.createElement('button');
+  newGameButton.type = 'button';
+  newGameButton.textContent = 'New Game';
+  newGameButton.addEventListener('click', onNewGame);
+
+  game.append(input, guessButton, result, history, newGameButton);
 
   return game;
 };

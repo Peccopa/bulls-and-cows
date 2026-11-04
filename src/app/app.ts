@@ -42,6 +42,10 @@ export const createApp = (): HTMLElement => {
 
         return nextState;
       },
+      () => {
+        game.replaceWith(settings);
+        game = settings;
+      },
     );
 
     game.replaceWith(gameView);
