@@ -1,1 +1,5 @@
-console.log('Starter Pack TS');
+import { createApp } from './app/app';
+
+const app = createApp();
+
+document.body.append(app);
