@@ -7,8 +7,11 @@ import { startGame } from '../entities/game/model/state/start-game';
 import { submitGuess } from '../entities/game/model/state/submit-guess';
 import { sortRecords } from '../entities/game/model/statistics/sort-records';
 import { createGameView } from '../features/game-play/ui/game-view';
-import { createSettingsView } from '../features/game-settings/ui/settings-view';
 import { createLeaderboardView } from '../features/game-play/ui/leaderboard-view';
+import {
+  createSettingsView,
+  setSettingsDisabled,
+} from '../features/game-settings/ui/settings-view';
 
 import type { GameRecord, GameState } from '../entities/game/model/state/types';
 
@@ -30,6 +33,7 @@ export const createApp = (): HTMLElement => {
     const initialState = createInitialState(gameSettings);
 
     gameState = startGame(initialState);
+    setSettingsDisabled(settings, true);
 
     console.log('Secret:', gameState.secret);
 
@@ -73,8 +77,13 @@ export const createApp = (): HTMLElement => {
         return nextState;
       },
       () => {
-        game.replaceWith(settings);
-        game = settings;
+        setSettingsDisabled(settings, false);
+
+        const newGame = document.createElement('section');
+        newGame.className = 'game';
+
+        game.replaceWith(newGame);
+        game = newGame;
       },
     );
 

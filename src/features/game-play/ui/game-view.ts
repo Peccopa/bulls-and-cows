@@ -22,7 +22,9 @@ export const createGameView = (
   const isValidDigit = createDigitValidator(base);
 
   input.addEventListener('input', () => {
-    input.value = [...input.value].filter(isValidDigit).join('');
+    const digits = [...input.value.toUpperCase()].filter(isValidDigit);
+
+    input.value = [...new Set(digits)].join('');
   });
 
   const guessButton = document.createElement('button');

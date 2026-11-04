@@ -63,3 +63,14 @@ export const createSettingsView = (
 
   return settings;
 };
+
+export const setSettingsDisabled = (
+  settings: HTMLElement,
+  disabled: boolean,
+): void => {
+  settings
+    .querySelectorAll<HTMLSelectElement | HTMLButtonElement>('select, button')
+    .forEach((control) => {
+      control.disabled = disabled;
+    });
+};
