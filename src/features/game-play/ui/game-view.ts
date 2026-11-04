@@ -55,6 +55,11 @@ export const createGameView = (
         : `Bulls: ${entry.bulls}, Cows: ${entry.cows}`;
 
     history.replaceChildren(createHistoryView(nextState.history));
+
+    if (nextState.status === 'won') {
+      input.disabled = true;
+      guessButton.disabled = true;
+    }
   });
 
   const newGameButton = document.createElement('button');
