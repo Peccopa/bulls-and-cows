@@ -8,8 +8,11 @@ import { submitGuess } from '../entities/game/model/state/submit-guess';
 import { sortRecords } from '../entities/game/model/statistics/sort-records';
 import { createGameView } from '../features/game-play/ui/game-view';
 import { createSettingsView } from '../features/game-settings/ui/settings-view';
+import { createLeaderboardView } from '../features/game-play/ui/leaderboard-view';
 
 import type { GameRecord, GameState } from '../entities/game/model/state/types';
+
+let leaderboard = createLeaderboardView(loadRecords());
 
 export const createApp = (): HTMLElement => {
   const app = document.createElement('main');
@@ -59,6 +62,11 @@ export const createApp = (): HTMLElement => {
 
             const records = loadRecords();
             saveRecords(sortRecords([...records, record]));
+
+            const updatedLeaderboard = createLeaderboardView(loadRecords());
+
+            leaderboard.replaceWith(updatedLeaderboard);
+            leaderboard = updatedLeaderboard;
           }
         }
 
@@ -74,7 +82,7 @@ export const createApp = (): HTMLElement => {
     game = gameView;
   });
 
-  app.append(title, settings, game);
+  app.append(title, settings, game, leaderboard);
 
   return app;
 };
