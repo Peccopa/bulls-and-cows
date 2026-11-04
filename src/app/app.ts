@@ -26,24 +26,18 @@ export const createApp = (): HTMLElement => {
 
     const gameView = createGameView(gameSettings.length, (guess) => {
       if (gameState === null) {
-        return 'Game is not active.';
+        return null;
       }
 
       const nextState = submitGuess(gameState, guess);
 
       if (nextState === gameState) {
-        return 'Invalid or repeated guess.';
+        return null;
       }
 
       gameState = nextState;
 
-      const entry = nextState.history[nextState.history.length - 1];
-
-      if (nextState.status === 'won') {
-        return `You won! ${entry.bulls} bulls.`;
-      }
-
-      return `Bulls: ${entry.bulls}, Cows: ${entry.cows}`;
+      return nextState;
     });
 
     game.replaceWith(gameView);
