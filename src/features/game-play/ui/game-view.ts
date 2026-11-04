@@ -83,7 +83,11 @@ export const createGameView = (
   newGameButton.textContent = 'New Game';
   newGameButton.addEventListener('click', onNewGame);
 
-  game.append(input, guessButton, result, history, newGameButton);
+  const guessControls = document.createElement('div');
+  guessControls.className = 'guess-controls';
+  guessControls.append(input, guessButton);
+
+  game.append(guessControls, result, history, newGameButton);
 
   return game;
 };
